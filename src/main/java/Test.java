@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+import org.testng.Assert;
+
 public class Test {
     public static void main(String[] args) {
         int[] nums = {0, 3, 5, 7, 13, 15, 20};
@@ -20,6 +22,9 @@ public class Test {
         int[] v = {0, 2, 2};
         int[] m = {1, 3};
         System.out.println(Arrays.toString(returnSortedArray(v, m)));
+
+
+       (new Test()).returnSum(4, 5, 9);
     }
 
     //    Реализуйте функцию, которая для данного массива целых чисел (int) возвращает значение наиболее близкое к 10.
@@ -134,4 +139,20 @@ public class Test {
         Arrays.parallelSort(num);
         return num;
     }
+
+    //    6  Реализовать функция принимающую на вход 3 значения типа int (a b c), возвращать сумму квадратов наибольших из них
+    private int returnSum(int a, int b, int c) {
+        int sum;
+        if (a < b && a < c) {
+            sum = b * b + c * c;
+        } else if (b < a && b < c) {
+            sum = a * a + c * c;
+        } else {
+            sum = a * a + b * b;
+        }
+
+        return sum;
+
+    }
+
 }
