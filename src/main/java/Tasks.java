@@ -1,35 +1,14 @@
 import java.util.Arrays;
 
-import org.testng.Assert;
 
-public class Test {
+public class Tasks {
     public static void main(String[] args) {
-        int[] nums = {0, 3, 5, 7, 13, 15, 20};
-        System.out.println(returnNum(nums));
 
-        int yearStart = 2005;
-        int yearEnd = 2030;
-        System.out.println(returnLeapYear(yearStart, yearEnd));
-        System.out.println(toBinary(5));
-
-        int[] duplicate = {5, 10, 5, 3, 10, 10, 1};
-        System.out.println(Arrays.toString(returnDuplicateNumbers(duplicate)));
-
-
-        int[] arr = {-1, 2, 5, 10, -3, -11};
-        System.out.println(Arrays.toString(returnPositiveNum(arr)));
-
-        int[] v = {0, 2, 2};
-        int[] m = {1, 3};
-        System.out.println(Arrays.toString(returnSortedArray(v, m)));
-
-
-       (new Test()).returnSum(4, 5, 9);
     }
 
     //    Реализуйте функцию, которая для данного массива целых чисел (int) возвращает значение наиболее близкое к 10.
 //    Если существует два одинаково близких значения (например, 8 и 12), считайте больше значение более близким.
-    public static int returnNum(int[] num) {
+    public int returnNum(int[] num) {
         int a = 0;
         int diff = Math.abs(10 - num[a]);
         for (int i = 0; i < num.length; i++) {
@@ -48,9 +27,14 @@ public class Test {
     }
 
     //    1. Вывести все високосные годы из диапазона
-    public static int returnLeapYear(int yearStart, int yearEnd) {
+    public int returnLeapYear(int yearStart, int yearEnd) {
         for (int i = yearStart; i <= yearEnd; i++) {
-            if (i % 4 == 0) {
+            if (i % 4 == 0 && i % 100 != 0) {
+                System.out.print(i);
+                if (i != yearEnd) {
+                    System.out.print(",");
+                }
+            } else if (i % 400 == 0) {
                 System.out.print(i);
                 if (i != yearEnd) {
                     System.out.print(",");
@@ -63,57 +47,48 @@ public class Test {
 
     // 2. Даны два массива целых чисел, отсортированных по возрастанию {0, 2, 2} и {1, 3}. Надо объединить их в один, чтобы на
 //   выходе получился массив, отсортированный так же по возрастанию: {0, 1, 2, 2, 3}.
-    public static int[] returnSortedArray(int[] arr1, int[] arr2) {
+    public int[] returnSortedArray(int[] arr1, int[] arr2) {
         if (arr1 == null && arr2 == null) return null;
-        if (arr1 == null) return arr2.clone();
-        if (arr2 == null) return arr1.clone();
+        if (arr1 == null) return arr2;
+        if (arr2 == null) return arr1;
 
         int[] result = new int[arr1.length + arr2.length];
-        int i = 0, j = 0, r = 0;
-        while (i < arr1.length && j < arr2.length) {
-            if (arr1[i] < arr2[j]) {
-                result[r] = arr1[i];
-                i++;
-            } else {
-                result[r] = arr2[j];
-                j++;
-            }
-            r++;
+        int count = 0;
+        for (int i = 0; i < arr1.length; i++) {
+            result[i] = arr1[i];
+            count++;
         }
-        if (i < arr1.length) {
-            System.arraycopy(arr1, i, result, r, (arr1.length - i));
+        for (int j = 0; j < arr2.length; j++) {
+            result[count++] = arr2[j];
         }
-        if (j < arr2.length) {
-            System.arraycopy(arr2, j, result, r, (arr2.length - j));
-        }
+        Arrays.parallelSort(result);
+        for (int i = 0; i < result.length; i++)
+            System.out.print(result[i] + " ");
         return result;
     }
 
-    //    3. Дан массив целых чисел. Написать функцию, возвращающую массив всех неуникальных значений исходного массива. Пример:
-//   {5, 10, 5, 3, 10, 10, 1}->{5, 10, 5, 10, 10}
-    public static int[] returnDuplicateNumbers(int[] d) {
+    //    3. Дан массив целых чисел. Написать функцию, возвращающую массив всех неуникальных значений исходного массива.
+    //    Пример:  {5, 10, 5, 3, 10, 10, 1}->{5, 10, 5, 10, 10}
+    public int[] returnDuplicateNumbers(int[] d) {
+        int[] duplicateNum = new int[]{};
         int numSize = 0;
         for (int i = 0; i < d.length; i++) {
-            for (int j = 0; j < d.length; j++)
+            for (int j = i + 1; j < d.length; j++)
                 if (d[i] == d[j]) {
+                    duplicateNum[numSize] = d[i];
                     numSize++;
                 }
+
         }
 
-        int[] duplicateNum = new int[numSize];
-        int j = 0;
-        for (int i = 0; i < d.length; i++) {
-            if (d[i] == d[j]) {
-                d[i] = d[j];
-
-            }
-        }
+        for (int i = 0; i < duplicateNum.length; i++)
+            System.out.print(duplicateNum[i] + " ");
         return duplicateNum;
     }
 
     //    4. Реализуйте функцию, возвращающую двоичное представление числа n(n>=0). Например, 101 - это двоичное представление
 //числа. Метод должен иметь сигнатуру String toBinary(int number)
-    public static String toBinary(int number) {
+    public String toBinary(int number) {
         if (number == 0) return null;
         String str = Integer.toBinaryString(number);
         return str;
@@ -121,7 +96,7 @@ public class Test {
 
     //    5. Реализуйте функцию, которая для данного массива возвращает массив только положительных чисел,
 //отсортированных по возрастанию.
-    public static int[] returnPositiveNum(int[] f) {
+    public int[] returnPositiveNum(int[] f) {
         int total = 0;
         for (int i = 0; i < f.length; i++) {
             if (f[i] > 0) {
@@ -136,12 +111,16 @@ public class Test {
                 j++;
             }
         }
+// TODO: parallelSort разбивает массив на подмассивы, сортирует и объединяет обратно,
+//  его удобно использовать в больших массивах
         Arrays.parallelSort(num);
+        for (int i = 0; i < num.length; i++)
+            System.out.print(num[i] + " ");
         return num;
     }
 
     //    6  Реализовать функция принимающую на вход 3 значения типа int (a b c), возвращать сумму квадратов наибольших из них
-    private int returnSum(int a, int b, int c) {
+    public int returnSum(int a, int b, int c) {
         int sum;
         if (a < b && a < c) {
             sum = b * b + c * c;
@@ -150,9 +129,9 @@ public class Test {
         } else {
             sum = a * a + b * b;
         }
-
         return sum;
-
     }
+
+
 
 }
