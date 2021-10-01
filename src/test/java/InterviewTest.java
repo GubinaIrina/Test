@@ -2,25 +2,28 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
-
-import static org.testng.Assert.*;
-
 public class InterviewTest {
+
     @DataProvider
-    public Object[][] numBrieflyThree() {
+    public Object[][] foobar() {
         return new Object[][]{
-                {new int[]{9, 3}, new int[]{0, 9, 3, 10, 5}},
-                {new int[]{}, new int[]{}},
-                {new int[]{}, new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE}},
-                {null, null}
+                {"foo", 3},
+                {"bar", 5},
+                {"foobar", 15},
+                {"13", 13},
+                {"0", 0},
+                {"foo", -3},
+                {"bar", -5},
+                {"foobar", -15},
+                {"2147483647", Integer.MAX_VALUE},
+                {"-2147483648", Integer.MIN_VALUE}
         };
     }
-    @Test(dataProvider = "numBrieflyThree")
-    public void testNumBrieflyThree(int[] expected, int[] mass){
+
+    @Test(dataProvider = "foobar")
+    public void testFoobar(String expected, int num) {
         Interview task = new Interview();
-        int[] actual = task.numBrieflyThree(mass);
-        System.out.println(Arrays.toString(actual));
+        String actual = task.foobar(num);
         Assert.assertEquals(actual, expected);
     }
 

@@ -1,34 +1,29 @@
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Interview {
     public static void main(String[] args) {
 
 
     }
-// Дан массив целых чисел, реализовать функцию которая возвращает значения кратным 3, рез вывести в консоль, реализовать проверки
-    public int[] numBrieflyThree(int[] number) {
-        if(number == null){
-            return null;
+
+//    Реализуйте функцию, которая для заданного числа (int) печатает «foo», если это число делится на 3 без остатка,
+//    печатает «bar», если это число делится на 5 без остатка, печатает «foobar», если это число делится на 15 без остатка,
+//    печатает само число в остальных случаях. Покрыть тестами.
+
+    public String foobar(int num) {
+        String message;
+        if (num == 0) {
+            message = String.valueOf(0);
+        } else if (num % 15 == 0) {
+            message = "foobar";
+        } else if (num % 5 == 0) {
+            message = "bar";
+        } else if (num % 3 == 0) {
+            message = "foo";
+        } else {
+            message = String.valueOf(num);
         }
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int num: number) {
-            if (num != 0 && num % 3 == 0) {
-                temp.add(num);
-            }
-
-        }
-
-        return returnMass(temp);
-
-    }
-
-    private int[] returnMass(List<Integer> list){
-        int[] result = new int[list.size()];
-        for(int i = 0; i < list.size(); i++){
-            result[i] = list.get(i);
-        }
-        return result;
+        return message;
     }
 
 }
