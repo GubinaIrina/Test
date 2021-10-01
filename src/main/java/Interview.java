@@ -14,16 +14,22 @@ public class Interview {
         String message;
         if (num == 0) {
             message = String.valueOf(0);
+            System.out.println(message);
         } else if (num % 15 == 0) {
             message = "foobar";
+            System.out.println(message);
         } else if (num % 5 == 0) {
             message = "bar";
+            System.out.println(message);
         } else if (num % 3 == 0) {
             message = "foo";
+            System.out.println(message);
         } else {
             message = String.valueOf(num);
+            System.out.println(message);
         }
         return message;
     }
+
 
 }
